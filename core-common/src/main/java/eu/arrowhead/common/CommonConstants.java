@@ -41,7 +41,7 @@ public class CommonConstants {
 	public static final String CORE_SYSTEM_SERVICEREGISTRY = "Service Registry";
 	public static final String CORE_SYSTEM_QOSMONITOR = "Quality of Service Monitor";
 	public static final String CORE_SYSTEM_TRANSLATOR = "Translator";
-
+	public static final String CORE_SYSTEM_SERVICEINVENTORY = "Service Inventory";
 	public static final String CORE_SYSTEM_SYSTEMREGISTRY = "System Registry";
 	public static final String CORE_SYSTEM_DEVICEREGISTRY = "Device Registry";
 	public static final String CORE_SYSTEM_ONBOARDING = "Onboarding Controller";
@@ -148,6 +148,9 @@ public class CommonConstants {
 
 	public static final String CORE_SERVICE_GAMS_SERVICE = "gams-service";
 	public static final String CORE_SERVICE_GAMS_SENSOR_SERVICE = "gams-sensor-service";
+	
+	public static final String CORE_SERVICE_SERVICEINVENTORY_AI_LABELING = "ai-labeling";
+	public static final String CORE_SERVICE_SERVICEINVENTORY_AI_LABELING_RESULTS = "ai-labeling-results";
 
 	public static final String DOT = ".";
 	public static final String COMMON_FIELD_NAME_ID = "id";
@@ -344,6 +347,10 @@ public class CommonConstants {
 
 	public static final String OP_GAMS_SERVICE_URI = "";
 	public static final String OP_GAMS_SENSOR_SERVICE_URI = "/{gams_uid}/sensor";
+	
+	public static final String SERVICEINVENTORY_URI = "/serviceinventory";
+	public static final String OP_SERVICEINVENTORY_AI_LABELING_URI = "/ai-labeling";
+	public static final String OP_SERVICEINVENTORY_AI_LABELING_RESULTS_URI = "/ai-labeling/{id}";
 
 	public static final String SWAGGER_COMMON_PACKAGE = "eu.arrowhead.common.swagger";
 	public static final String SWAGGER_UI_URI = "/swagger-ui.html";

@@ -101,3 +101,10 @@ source plant_description_engine_privileges.sql
 CREATE USER IF NOT EXISTS 'mscv'@'localhost' IDENTIFIED BY 'ASdPsa64y56A128';
 CREATE USER IF NOT EXISTS 'mscv'@'%' IDENTIFIED BY 'ASdPsa64y56A128';
 source mscv_privileges.sql
+
+-- Service Inventory
+CREATE USER IF NOT EXISTS 'serviceinventory'@'localhost' IDENTIFIED BY 'qA0YwzRTjX2YhrX';
+CREATE USER IF NOT EXISTS 'serviceinventory'@'%' IDENTIFIED BY 'qA0YwzRTjX2YhrX';
+source serviceinventory_privileges.sql
+
+

@@ -31,7 +31,7 @@ public class SISwaggerConfig extends DefaultSwaggerConfig {
 
 	//-------------------------------------------------------------------------------------------------
 	public SISwaggerConfig() {
-		super(CommonConstants.CORE_SYSTEM_EVENTHANDLER);
+		super(CommonConstants.CORE_SYSTEM_SERVICEINVENTORY);
 	}
 	
 	//-------------------------------------------------------------------------------------------------

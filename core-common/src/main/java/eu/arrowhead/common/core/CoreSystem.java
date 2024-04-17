@@ -132,7 +132,10 @@ public enum CoreSystem {
 	GAMS(Defaults.DEFAULT_GENERIC_AUTONOMIC_MANAGEMENT_PORT, List.of(CoreSystemService.GAMS_SERVICE,
 																	 CoreSystemService.GAMS_SENSOR_SERVICE)),
 	
-	HAWKBITCONFIGURATIONMANAGER(Defaults.DEFAULT_HAWKBIT_CONFIGURATION_MANAGER_PORT, List.of());
+	HAWKBITCONFIGURATIONMANAGER(Defaults.DEFAULT_HAWKBIT_CONFIGURATION_MANAGER_PORT, List.of()),
+	
+	SERVICEINVENTORY(Defaults.DEFAULT_SERVICEINVENTORY_PORT, List.of(CoreSystemService.SERVICEINVENTORY_AI_LABELING_SERVICE,
+																	 CoreSystemService.SERVICEINVENTORY_AI_LABELING_RESULTS_SERVICE));
 
 	//=================================================================================================
 	// members
