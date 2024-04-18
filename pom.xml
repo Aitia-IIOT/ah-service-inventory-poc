@@ -44,6 +44,7 @@
 	    <module>qos-monitor</module>
 	    <module>translator</module>
 		<module>plantdescriptionengine</module>
+		<module>serviceinventory</module>
 		<module>hawkbit-configuration-manager</module>
 	    <module>deb-installer</module>
 	    <module>docker-all</module>
