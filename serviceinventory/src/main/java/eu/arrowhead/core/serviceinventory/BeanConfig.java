@@ -14,9 +14,14 @@
 
 package eu.arrowhead.core.serviceinventory;
 
+import java.util.UUID;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import eu.arrowhead.common.CoreCommonConstants;
 import eu.arrowhead.core.serviceinventory.data.ILabelingStorage;
 import eu.arrowhead.core.serviceinventory.data.InMemoryLabelingStorage;
 
@@ -30,5 +35,11 @@ public class BeanConfig {
 	@Bean
 	public ILabelingStorage createStorage() {
 		return new InMemoryLabelingStorage();
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+	@Bean(name = CoreCommonConstants.SERVICE_INVENTORY_LABELING_JOB_QUEUE)
+	BlockingQueue<UUID> initLabelingJobQueue() {
+		return new LinkedBlockingQueue<>();
 	}
 }

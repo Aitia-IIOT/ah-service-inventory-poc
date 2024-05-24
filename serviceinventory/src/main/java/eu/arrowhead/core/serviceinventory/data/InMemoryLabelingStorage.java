@@ -14,6 +14,17 @@
 
 package eu.arrowhead.core.serviceinventory.data;
 
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class InMemoryLabelingStorage implements ILabelingStorage {
 
+	//=================================================================================================
+	// members
+	
+	private Map<UUID,LabelingJob> storage = new ConcurrentHashMap<>();
+	
+	//=================================================================================================
+	// methods
 }

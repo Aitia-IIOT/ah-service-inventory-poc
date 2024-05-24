@@ -51,8 +51,9 @@ public class ServiceInventoryApplicationInitListener extends ApplicationInitList
 			throw new ServiceConfigurationError("Working folder creation failed.");
 		}
 		Utilities.clearFolder(workingFolderPath);
-		
-		checkScriptFolder();
+	
+		// TODO: uncomment this
+//		checkScriptFolder();
 	}
 	
 	//-------------------------------------------------------------------------------------------------

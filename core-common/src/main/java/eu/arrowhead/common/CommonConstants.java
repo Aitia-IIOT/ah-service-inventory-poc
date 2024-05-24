@@ -350,7 +350,7 @@ public class CommonConstants {
 	public static final String OP_GAMS_SENSOR_SERVICE_URI = "/{gams_uid}/sensor";
 	
 	public static final String SERVICEINVENTORY_URI = "/serviceinventory";
-	public static final String OP_SERVICEINVENTORY_AI_LABELING_URI = "/ai-labeling";
+	public static final String OP_SERVICEINVENTORY_AI_LABELING_URI = "/ai-labeling/{type}";
 	public static final String OP_SERVICEINVENTORY_AI_LABELING_RESULTS_URI = "/ai-labeling/{id}";
 
 	public static final String SWAGGER_COMMON_PACKAGE = "eu.arrowhead.common.swagger";

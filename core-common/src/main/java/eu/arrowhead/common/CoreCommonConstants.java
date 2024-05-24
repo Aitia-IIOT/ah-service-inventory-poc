@@ -331,6 +331,8 @@ public class CoreCommonConstants {
 	public static final String $SERVICE_INVENTORY_SCRIPT_FOLDER_WD = "${" + SERVICE_INVENTORY_SCRIPT_FOLDER + ":" + CoreDefaults.DEFAULT_SERVICE_INVENTORY_SCRIPTS_FOLDER + "}";
 	public static final String SERVICE_INVENTORY_WORKING_FOLDER = "working_folder";
 	public static final String $SERVICE_INVENTORY_WORKING_FOLDER_WD = "${" + SERVICE_INVENTORY_WORKING_FOLDER + ":" + CoreDefaults.DEFAULT_SERVICE_INVENTORY_WORKING_FOLDER + "}";
+	
+	public static final String SERVICE_INVENTORY_LABELING_JOB_QUEUE = "labelingJobQueue";
 
     //=================================================================================================
 	// assistant methods
