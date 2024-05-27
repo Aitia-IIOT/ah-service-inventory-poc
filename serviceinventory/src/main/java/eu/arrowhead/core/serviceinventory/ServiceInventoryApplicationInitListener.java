@@ -18,6 +18,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.ServiceConfigurationError;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Component;
 import eu.arrowhead.common.ApplicationInitListener;
 import eu.arrowhead.common.CoreCommonConstants;
 import eu.arrowhead.common.Utilities;
+import eu.arrowhead.core.serviceinventory.thread.LabelingManager;
 
 @Component
 public class ServiceInventoryApplicationInitListener extends ApplicationInitListener {
@@ -37,6 +39,9 @@ public class ServiceInventoryApplicationInitListener extends ApplicationInitList
 	
 	@Value(CoreCommonConstants.$SERVICE_INVENTORY_SCRIPT_FOLDER_WD)
 	private String scriptFolderPath;
+	
+	@Autowired
+	private LabelingManager labelingManager;
 	
 	//=================================================================================================
 	// assistant methods
@@ -54,6 +59,16 @@ public class ServiceInventoryApplicationInitListener extends ApplicationInitList
 	
 		// TODO: uncomment this
 //		checkScriptFolder();
+		
+		labelingManager.start();
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+	@Override
+	protected void customDestroy() {
+		logger.debug("customDestroy started...");
+
+		labelingManager.interrupt();
 	}
 	
 	//-------------------------------------------------------------------------------------------------

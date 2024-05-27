@@ -17,6 +17,7 @@ package eu.arrowhead.core.serviceinventory;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.http.HttpStatus;
 import org.apache.logging.log4j.LogManager;
@@ -164,7 +165,12 @@ public class ServiceInventoryController {
 	})
 	@GetMapping(path = CommonConstants.OP_SERVICEINVENTORY_AI_LABELING_RESULTS_URI, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ServiceInventoryLabelingResultResponseDTO getAiLabelingResult(@PathVariable final String id) {
-		return null;
+		logger.debug("getAiLabelingResult started...");
+		
+		final String origin = CommonConstants.SERVICEINVENTORY_URI + CommonConstants.OP_SERVICEINVENTORY_AI_LABELING_RESULTS_URI;
+		final UUID uuid = checkAndParseGetResultParameter(id, origin);
+		
+		return siService.getLabelingJobResult(uuid);
 	}
 	
 	//=================================================================================================
@@ -190,5 +196,20 @@ public class ServiceInventoryController {
 		}
 		
 		return result;
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+	private UUID checkAndParseGetResultParameter(final String id, final String origin) {
+		logger.debug("checkAndParseGetResultParameter started...");
+		
+		if (Utilities.isEmpty(id)) {
+			throw new BadPayloadException("Missing 'id'", HttpStatus.SC_BAD_REQUEST, origin);
+		}
+		
+		try {
+			return UUID.fromString(id);
+		} catch (final IllegalArgumentException ex) {
+			throw new BadPayloadException("Invalid 'id'", HttpStatus.SC_BAD_REQUEST, origin);
+		}
 	}
 }

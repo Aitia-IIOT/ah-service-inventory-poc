@@ -18,6 +18,7 @@ public class LabelingJob {
 	private LabelingJobStatus status;
 	private final List<String> errorMessages = new ArrayList<>();
 	private final Map<String,String> result = new HashMap<>();
+	private boolean deletable = false;
 	
 	//=================================================================================================
 	// methods
@@ -35,9 +36,11 @@ public class LabelingJob {
 	public LabelingJobStatus getStatus() { return status; }
 	public List<String> getErrorMessages() { return errorMessages; }
 	public Map<String,String> getResult() { return result; }
+	public boolean getDeletable() { return deletable; }
 
 	//-------------------------------------------------------------------------------------------------
 	public void setStatus(final LabelingJobStatus status) { this.status = status; }
+	public void setDeletable(final boolean deletable) { this.deletable = deletable; }
 	
 	//-------------------------------------------------------------------------------------------------
 	public void addErrorMessage(final String error) {
