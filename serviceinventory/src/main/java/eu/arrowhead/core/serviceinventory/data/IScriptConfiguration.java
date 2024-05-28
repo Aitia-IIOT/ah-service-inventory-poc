@@ -12,13 +12,13 @@
  *   Arrowhead Consortia - conceptualization
  ********************************************************************************/
 
-package eu.arrowhead.common.dto.shared;
+package eu.arrowhead.core.serviceinventory.data;
 
-public enum LabelingJobStatus {
-	PENDING, IN_PROGRESS, FINISHED, ERROR;
+public interface IScriptConfiguration {
+
+	//=================================================================================================
+	// methods
 	
 	//-------------------------------------------------------------------------------------------------
-	public boolean isFinal() {
-		return this == FINISHED || this == FINISHED;
-	}
+	public String getConfigForScript(final String scriptName);
 }

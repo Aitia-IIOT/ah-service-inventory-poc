@@ -111,6 +111,7 @@ public class CoreDefaults {
 	
 	public static final String DEFAULT_SERVICE_INVENTORY_SCRIPTS_FOLDER = "scripts";
 	public static final String DEFAULT_SERVICE_INVENTORY_WORKING_FOLDER = "working";
+	public static final int DEFAULT_SERVICE_INVENTORY_LABEL_WORKER_NUM = 1;
 
     //=================================================================================================
 	// assistant methods

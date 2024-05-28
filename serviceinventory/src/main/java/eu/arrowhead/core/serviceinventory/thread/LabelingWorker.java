@@ -15,7 +15,12 @@
 package eu.arrowhead.core.serviceinventory.thread;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
@@ -24,8 +29,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import eu.arrowhead.common.CoreCommonConstants;
+import eu.arrowhead.common.Utilities;
 import eu.arrowhead.common.dto.shared.LabelingJobStatus;
 import eu.arrowhead.core.serviceinventory.data.ILabelingStorage;
+import eu.arrowhead.core.serviceinventory.data.IScriptConfiguration;
 import eu.arrowhead.core.serviceinventory.data.LabelingJob;
 import eu.arrowhead.core.serviceinventory.data.LabelingStorageException;
 
@@ -34,12 +41,18 @@ public class LabelingWorker implements Runnable {
 	//=================================================================================================
 	// members
 	
+	private static final String INPUT_SUFFIX = ".input";
+	private static final String OUTPUT_SUFFIX = ".output";
+	
 	private final Logger logger = LogManager.getLogger(LabelingWorker.class);
 	
 	private final UUID jobId;
 	
 	@Autowired
 	private ILabelingStorage storage;
+	
+	@Autowired
+	private IScriptConfiguration scriptConfig;
 	
 	@Value(CoreCommonConstants.$SERVICE_INVENTORY_WORKING_FOLDER_WD)
 	private String workingFolderPath;
@@ -58,7 +71,7 @@ public class LabelingWorker implements Runnable {
 	//-------------------------------------------------------------------------------------------------
 	@Override
 	public void run() {
-		logger.trace("LabelingWorker.run started...");
+		logger.debug("LabelingWorker.run started...");
 		
 		try {
 			final LabelingJob job = storage.getJob(jobId);
@@ -80,36 +93,110 @@ public class LabelingWorker implements Runnable {
 
 	//-------------------------------------------------------------------------------------------------
 	private void handleJob() throws LabelingStorageException {
-		logger.trace("LabelingWorker.handleJob started...");
+		logger.debug("LabelingWorker.handleJob started...");
 		
 		storage.updateStatus(jobId, LabelingJobStatus.IN_PROGRESS);
 		
 		int errorCounter = 0;
 		final File[] scriptFiles = getScriptFiles();
-		for (final File script : scriptFiles) {
-			errorCounter += runScript(script);
+		if (scriptFiles == null) {
+			// no scripts
+			return; 
 		}
 		
+		final Path inputFilePath = initializeWorkspace();
+		if (inputFilePath == null) {
+			// problem with preparing
+			return;
+		}
+		
+		for (final File script : scriptFiles) {
+			errorCounter += runScript(script, inputFilePath);
+		}
+		
+		cleanWorkspace(inputFilePath.getParent());
 		final boolean allErrors = errorCounter == scriptFiles.length; // every script returns with error
 		storage.updateStatus(jobId, allErrors ? LabelingJobStatus.ERROR : LabelingJobStatus.FINISHED);
 	}
 	
 	//-------------------------------------------------------------------------------------------------
-	private int runScript(final File script) {
-		// TODO Auto-generated method stub
-		// TODO: continue
-		return 0;
+	private Path initializeWorkspace() throws LabelingStorageException {
+		logger.debug("LabelingWorker.initializeWorkspace started...");
+		
+		final Path workspace = Path.of(workingFolderPath, jobId.toString());
+		final boolean success = Utilities.prepareFolder(workspace.toString());
+		if (!success) {
+			handleError("Can't prepare workspace.");
+			return null;
+		}
+		
+		final Path inputFile = Path.of(workspace.toString(), jobId.toString() + INPUT_SUFFIX);
+		try {
+			Files.writeString(inputFile, storage.getJob(jobId).getRawContent(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+		} catch (final IOException ex) {
+			handleError("Can't prepare input file.");
+			return null;
+		}
+		
+		return inputFile;
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+	private void cleanWorkspace(final Path workspace) {
+		logger.debug("LabelingWorker.cleanWorkspace started...");
+
+		Utilities.clearFolder(workspace.toString());
+		workspace.toFile().delete();
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	private int runScript(final File script, final Path inputFilePath) throws LabelingStorageException {
+		logger.debug("LabelingWorker.runScript started...");
+		
+		final List<String> command = new ArrayList<>();
+		command.add(script.getName());
+		command.add(inputFilePath.toString());
+		command.add(jobId.toString());
+		final String additionalParams = scriptConfig.getConfigForScript(script.getName());
+		if (!Utilities.isEmpty(additionalParams)) {
+			command.add(additionalParams);
+		}
+		
+		final File currentDir = script.getParentFile();
+		final ProcessBuilder builder = new ProcessBuilder(command);
+		builder.directory(currentDir);
+		try {
+			final Process process = builder.start();
+			process.waitFor();
+			
+			// TODO: process and delete result
+			return 0; // TODO: return value is based on result
+		} catch (final IOException | InterruptedException ex) {
+			storage.addError(jobId, ex.getMessage());
+			return 1;
+		}
 	}
 
 	//-------------------------------------------------------------------------------------------------
 	private File[] getScriptFiles() throws LabelingStorageException {
+		logger.debug("LabelingWorker.getScriptFiles started...");
+		
 		final File folder = Path.of(scriptFolderPath).toFile();
 		if (!folder.exists()) {
 			// no scripts
-			storage.addError(jobId, "No scripts found");
-			storage.updateStatus(jobId, LabelingJobStatus.ERROR);
+			handleError("No scripts found");
+			return null;
 		}
 			
 		return folder.listFiles((file) -> !file.isDirectory());
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+	private void handleError(final String errorMessage) throws LabelingStorageException {
+		logger.debug("LabelingWorker.handleError started...");
+		
+		logger.debug("Error occured during labeling process: {}", errorMessage);
+		storage.addError(jobId, errorMessage);
+		storage.updateStatus(jobId, LabelingJobStatus.ERROR);
 	}
 }

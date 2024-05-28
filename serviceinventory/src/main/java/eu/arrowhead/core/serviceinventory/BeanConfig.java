@@ -25,7 +25,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import eu.arrowhead.common.CoreCommonConstants;
+import eu.arrowhead.core.serviceinventory.data.HardcodedScriptConfiguration;
 import eu.arrowhead.core.serviceinventory.data.ILabelingStorage;
+import eu.arrowhead.core.serviceinventory.data.IScriptConfiguration;
 import eu.arrowhead.core.serviceinventory.data.InMemoryLabelingStorage;
 import eu.arrowhead.core.serviceinventory.thread.LabelingWorker;
 
@@ -39,6 +41,12 @@ public class BeanConfig {
 	@Bean
 	public ILabelingStorage createStorage() {
 		return new InMemoryLabelingStorage();
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+	@Bean
+	public IScriptConfiguration createConfiguration() {
+		return new HardcodedScriptConfiguration();
 	}
 	
 	//-------------------------------------------------------------------------------------------------

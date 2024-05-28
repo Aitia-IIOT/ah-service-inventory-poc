@@ -56,7 +56,7 @@ public class LabelingManager extends Thread {
 	
 	//-------------------------------------------------------------------------------------------------
 	public void run() {
-		logger.trace("LabelingManager.run started...");
+		logger.debug("LabelingManager.run started...");
 		
 		if (doWork) {
 			throw new UnsupportedOperationException("LabelingManager is already started.");
