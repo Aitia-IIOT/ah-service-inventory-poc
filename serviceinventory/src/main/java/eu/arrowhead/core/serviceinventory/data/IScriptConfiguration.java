@@ -14,11 +14,13 @@
 
 package eu.arrowhead.core.serviceinventory.data;
 
+import java.util.List;
+
 public interface IScriptConfiguration {
 
 	//=================================================================================================
 	// methods
 	
 	//-------------------------------------------------------------------------------------------------
-	public String getConfigForScript(final String scriptName);
+	public List<String> getConfigForScript(final String scriptName);
 }

@@ -31,4 +31,5 @@ public interface ILabelingStorage {
 	public void addError(final UUID uuid, final String error) throws LabelingStorageException;
 	public void addResult(final UUID uuid, final Map<String,String> result) throws LabelingStorageException;
 	public void setDeleteble(final UUID uuid, final boolean deletable) throws LabelingStorageException;
+	public int removeObsoleteJobs() throws LabelingStorageException;
 }

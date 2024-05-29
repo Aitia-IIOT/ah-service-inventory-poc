@@ -19,6 +19,6 @@ public enum LabelingJobStatus {
 	
 	//-------------------------------------------------------------------------------------------------
 	public boolean isFinal() {
-		return this == FINISHED || this == FINISHED;
+		return this == FINISHED || this == ERROR;
 	}
 }

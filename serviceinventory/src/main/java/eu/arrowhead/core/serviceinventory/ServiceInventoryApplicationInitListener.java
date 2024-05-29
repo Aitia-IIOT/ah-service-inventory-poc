@@ -57,8 +57,7 @@ public class ServiceInventoryApplicationInitListener extends ApplicationInitList
 		}
 		Utilities.clearFolder(workingFolderPath);
 	
-		// TODO: uncomment this
-//		checkScriptFolder();
+		checkScriptFolder();
 		
 		labelingManager.start();
 	}
@@ -79,7 +78,7 @@ public class ServiceInventoryApplicationInitListener extends ApplicationInitList
   				throw new ServiceConfigurationError("Script folder is not exists.");
   			}
   			
-  			final File[] files = folder.listFiles((file) -> !file.isDirectory());
+  			final File[] files = folder.listFiles((file) -> !file.isDirectory() && file.getName().endsWith(".py"));
   			if (files.length == 0) {
   				throw new ServiceConfigurationError("Script folder does not contain any scripts.");
   			}

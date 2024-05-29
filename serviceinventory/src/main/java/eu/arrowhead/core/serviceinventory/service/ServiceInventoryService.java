@@ -14,7 +14,6 @@
 
 package eu.arrowhead.core.serviceinventory.service;
 
-import java.security.InvalidParameterException;
 import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
 
@@ -28,6 +27,7 @@ import org.springframework.stereotype.Service;
 import eu.arrowhead.common.CoreCommonConstants;
 import eu.arrowhead.common.dto.shared.ServiceInventoryLabelingResultResponseDTO;
 import eu.arrowhead.common.exception.ArrowheadException;
+import eu.arrowhead.common.exception.InvalidParameterException;
 import eu.arrowhead.core.serviceinventory.data.ILabelingStorage;
 import eu.arrowhead.core.serviceinventory.data.LabelingContentType;
 import eu.arrowhead.core.serviceinventory.data.LabelingJob;

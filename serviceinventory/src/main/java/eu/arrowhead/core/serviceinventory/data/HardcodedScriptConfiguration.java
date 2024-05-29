@@ -14,6 +14,7 @@
 
 package eu.arrowhead.core.serviceinventory.data;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,19 +23,21 @@ public class HardcodedScriptConfiguration implements IScriptConfiguration {
 	//=================================================================================================
 	// members
 	
-	private final Map<String,String> config = new ConcurrentHashMap<>();
+	private final Map<String,List<String>> config = new ConcurrentHashMap<>();
 	
 	//=================================================================================================
 	// methods
 
 	//-------------------------------------------------------------------------------------------------
 	public HardcodedScriptConfiguration() {
-		// TODO: add config strings of different scripts
+		config.put("findNLTKLabels.py", List.of("1"));
+		config.put("findWord2VecLabels.py", List.of("1"));
+		// TODO: add extra command line parameters of different scripts
 	}
 
 	//-------------------------------------------------------------------------------------------------
 	@Override
-	public String getConfigForScript(final String scriptName) {
+	public List<String> getConfigForScript(final String scriptName) {
 		return config.get(scriptName);
 	}
 }

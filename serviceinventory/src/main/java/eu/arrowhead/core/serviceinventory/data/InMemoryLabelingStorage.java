@@ -15,6 +15,7 @@
 package eu.arrowhead.core.serviceinventory.data;
 
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -95,5 +96,19 @@ public class InMemoryLabelingStorage implements ILabelingStorage {
 		if (storage.containsKey(uuid)) {
 			storage.get(uuid).setDeletable(deletable);
 		}
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Override
+	public int removeObsoleteJobs() throws LabelingStorageException {
+		int count = 0;
+		for (final Entry<UUID,LabelingJob> entry : storage.entrySet()) {
+			if (entry.getValue().getDeletable()) {
+				storage.remove(entry.getKey());
+				count++;
+			}
+		}
+		
+		return count;
 	}
 }
