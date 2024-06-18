@@ -175,6 +175,7 @@ public class CommonConstants {
 	public static final String CBOR = "CBOR";
 	public static final String EXI = "EXI";
 	public static final String BINARY = "BINARY";
+	public static final String TEXT = "TEXT";
 	public static final String HTTP_SECURE_JSON = HTTP.toUpperCase() + SECURE_INTF + JSON;
 	public static final String HTTP_INSECURE_JSON = HTTP.toUpperCase() + INSECURE_INTF + JSON;
 	public static final String WS_SECURE_JSON = WS.toUpperCase() + SECURE_INTF + JSON;
@@ -349,7 +350,7 @@ public class CommonConstants {
 	public static final String OP_GAMS_SENSOR_SERVICE_URI = "/{gams_uid}/sensor";
 	
 	public static final String SERVICEINVENTORY_URI = "/serviceinventory";
-	public static final String OP_SERVICEINVENTORY_AI_LABELING_URI = "/ai-labeling";
+	public static final String OP_SERVICEINVENTORY_AI_LABELING_URI = "/ai-labeling/{type}";
 	public static final String OP_SERVICEINVENTORY_AI_LABELING_RESULTS_URI = "/ai-labeling/{id}";
 
 	public static final String SWAGGER_COMMON_PACKAGE = "eu.arrowhead.common.swagger";
@@ -368,7 +369,8 @@ public class CommonConstants {
   			  																		  CoreSystemService.EVENT_PUBLISH_SERVICE, CoreSystemService.EVENT_SUBSCRIBE_SERVICE, CoreSystemService.EVENT_UNSUBSCRIBE_SERVICE,
 																					  CoreSystemService.PROXY_SERVICE, CoreSystemService.HISTORIAN_SERVICE, CoreSystemService.CHOREOGRAPHER_SERVICE, CoreSystemService.CHOREOGRAPHER_REGISTER_EXECUTOR_SERVICE,
 																					  CoreSystemService.CHOREOGRAPHER_UNREGISTER_EXECUTOR_SERVICE, CoreSystemService.TRANSLATOR_SERVICE,
-	       																			  CoreSystemService.CONFIGURATION_SERVICE, CoreSystemService.CONFIGURATION_RAW_SERVICE, CoreSystemService.TIME_SERVICE);
+	       																			  CoreSystemService.CONFIGURATION_SERVICE, CoreSystemService.CONFIGURATION_RAW_SERVICE, CoreSystemService.TIME_SERVICE,
+	       																			  CoreSystemService.SERVICEINVENTORY_AI_LABELING_SERVICE, CoreSystemService.SERVICEINVENTORY_AI_LABELING_RESULTS_SERVICE);
 
 
 	

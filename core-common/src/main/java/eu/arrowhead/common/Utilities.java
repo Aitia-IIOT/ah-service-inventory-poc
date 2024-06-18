@@ -15,11 +15,13 @@
 package eu.arrowhead.common;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.security.KeyFactory;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -40,6 +42,7 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -757,6 +760,31 @@ public class Utilities {
 
         return null;
     }
+    
+    //-------------------------------------------------------------------------------------------------
+  	public static boolean prepareFolder(final String path) {
+  		if (!Utilities.isEmpty(path)) {
+  			final File folder = Path.of(path).toFile();
+  			if (!folder.exists()) {
+  				return folder.mkdirs();
+  			}
+  		}
+  		
+  		return true;
+  	}
+  	
+  	//-------------------------------------------------------------------------------------------------
+  	public static void clearFolder(final String path) {
+  		if (!Utilities.isEmpty(path)) {
+  			final File folder = Path.of(path).toFile();
+  			Arrays.asList(folder.listFiles()).stream().forEach((f) -> {
+  				if (f.isDirectory()) {
+  					clearFolder(f.getAbsolutePath());
+  				}
+  				f.delete();
+  			});
+  		}
+  	}
 
 	//=================================================================================================
 	// assistant methods

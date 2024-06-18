@@ -325,6 +325,18 @@ public class CoreCommonConstants {
 	public static final String $MQTT_BROKER_CERTFILE = "${" + MQTT_BROKER_CERTFILE + ":}";
 	public static final String MQTT_BROKER_KEYFILE = "mqtt.broker.keyfile";
 	public static final String $MQTT_BROKER_KEYFILE = "${" + MQTT_BROKER_KEYFILE + ":}";
+	
+	// Service inventory
+	public static final String SERVICE_INVENTORY_SCRIPT_FOLDER = "script_folder";
+	public static final String $SERVICE_INVENTORY_SCRIPT_FOLDER_WD = "${" + SERVICE_INVENTORY_SCRIPT_FOLDER + ":" + CoreDefaults.DEFAULT_SERVICE_INVENTORY_SCRIPTS_FOLDER + "}";
+	public static final String SERVICE_INVENTORY_WORKING_FOLDER = "working_folder";
+	public static final String $SERVICE_INVENTORY_WORKING_FOLDER_WD = "${" + SERVICE_INVENTORY_WORKING_FOLDER + ":" + CoreDefaults.DEFAULT_SERVICE_INVENTORY_WORKING_FOLDER + "}";
+	public static final String SERVICE_INVENTORY_LABEL_WORKER_NUM = "label_worker_num";
+	public static final String $SERVICE_INVENTORY_LABEL_WORKER_NUM_WD = "${" + SERVICE_INVENTORY_LABEL_WORKER_NUM + ":" + CoreDefaults.DEFAULT_SERVICE_INVENTORY_LABEL_WORKER_NUM + "}";
+	public static final String SERVICE_INVENTORY_CLEAN_INTERVAL = "clean_interval";
+	public static final String $SERVICE_INVENTORY_CLEAN_INTERVAL_WD = "${" + SERVICE_INVENTORY_CLEAN_INTERVAL + ":" + CoreDefaults.DEFAULT_SERVICE_INVENTORY_CLEAN_INTERVAL + "}";
+	
+	public static final String SERVICE_INVENTORY_LABELING_JOB_QUEUE = "labelingJobQueue";
 
     //=================================================================================================
 	// assistant methods

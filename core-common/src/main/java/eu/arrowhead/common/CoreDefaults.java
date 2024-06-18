@@ -108,6 +108,11 @@ public class CoreDefaults {
 	public static final long DEFAULT_CHOREOGRAPHER_MAX_PLAN_ITERATION = Long.MAX_VALUE;
 	
 	public static final int DEFAULT_VERIFICATION_INTERVAL = 3600; // in seconds
+	
+	public static final String DEFAULT_SERVICE_INVENTORY_SCRIPTS_FOLDER = "scripts";
+	public static final String DEFAULT_SERVICE_INVENTORY_WORKING_FOLDER = "working";
+	public static final int DEFAULT_SERVICE_INVENTORY_LABEL_WORKER_NUM = 1;
+	public static final int DEFAULT_SERVICE_INVENTORY_CLEAN_INTERVAL = 60;
 
     //=================================================================================================
 	// assistant methods
